@@ -1,6 +1,6 @@
 # ESP32 Light Controller
 
-This project is a custom LED light controller using an ESP32, built to overcome certain limitations in typical market LED controllers, such as low frame rates and visual artifacts like strobing.
+This project is a custom LED light controller using an ESP32, built to overcome certain limitations in typical market LED controllers, such as low frame rates and visual artifacts like strobing. It is meant to be used with lights that use the WS2811/2812 protocol.
 
 ## Features
 
@@ -27,10 +27,7 @@ This project is a custom LED light controller using an ESP32, built to overcome 
 
 ## Build Process
 
-1. Clone this repository:
-    ```bash
-    git clone https://github.com/your-repo/esp32-light-controller.git
-    ```
+1. Clone this repository
 2. Set up the ESP32 development environment:
     - Follow the [ESP32 setup guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html) for your operating system.
 3. Modify the code to set up the correct output/input pins for your ESP32 configuration.
@@ -39,3 +36,5 @@ This project is a custom LED light controller using an ESP32, built to overcome 
     idf.py build
     idf.py flash
     ```
+5. Program a show and export the `.fseq` file (uncompressed) to an SD card
+6. Plug the lights into the ESP32 with the correct data, Vin, and ground pins. You will need a 5V power supply for WS2812 lights and a 12V power supply for WS2811 lights.
