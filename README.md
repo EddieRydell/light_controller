@@ -36,5 +36,5 @@ This project is a custom LED light controller using an ESP32, built to overcome 
     idf.py build
     idf.py flash
     ```
-5. Program a show and export the `.fseq` file (uncompressed) to an SD card
+5. Program a show (in Vixen of XLights) and export the `.fseq` file (uncompressed) to an SD card. The framerate you export at is stored in the `.fseq` file.
 6. Plug the lights into the ESP32 with the correct data, Vin, and ground pins. You will need a 5V power supply for WS2812 lights and a 12V power supply for WS2811 lights.
