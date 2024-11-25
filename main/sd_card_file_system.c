@@ -52,6 +52,30 @@ void get_directory_names(const char* path, char** directory_names) {
 }
 
 // Initialize SD card to read files from it
+/* NOTE TO ECEN 330 STUDENTS 
+ * If you are using this code as a guide on Lab 7, there are a few changes you need to make:
+    1. This function assumes that the SPI system is already initialized (by lcd.c). This means that to use it for 
+    your own SD card, you will need to go into lcd.c and change the these lines in the spi_master_init function:
+        spi_bus_config_t buscfg = {
+            .mosi_io_num = GPIO_MOSI,
+            .miso_io_num = -1,        <---- This line needs to be changed to 19 (or whatever pin you're using for MISO on your SD card) instead of -1
+            .sclk_io_num = GPIO_SCLK,
+            .quadwp_io_num = -1,
+            .quadhd_io_num = -1,
+            .max_transfer_sz = 0,
+            .flags = 0
+        };
+    The spi_master_init function was originally meant to only initialize the SPI system for the LCD, so it only needed
+    to send data out using MOSI. For it to work with an SD card, we need to set the MISO pin so it can also receive data.
+
+    2. Some SD cards can't handle high frequency SPI clock speeds. If this is the case for your SD card, you'll probably
+    get an error that looks like this when calling this function:
+        E (607) sdmmc_sd: sdmmc_check_scr: send_scr returned 0x109
+    To fix this, you'll need to add this line:
+        host.max_freq_khz = 5000;
+    Put this right after initializing the host on line 89 in this file. This should reduce the frequency to something
+    that your SD card can handle.
+*/
 void init_sd_card() {
     ESP_LOGI(TAG, "Initializing SD card");
     esp_vfs_fat_sdmmc_mount_config_t mount_config = {
